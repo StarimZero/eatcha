@@ -10,10 +10,10 @@ import LoginPage from '../member/LoginPage'
 const MemberRouter = () => {
     return (
         <Routes>
-            <Route path='/read/:uid' element={<MypagePage/>} />
+            <Route path='/read/:member_user_uid' element={<MypagePage/>} />
             <Route path='/join' element={<JoinPage/>} />
             <Route path='/list.json' element={<MeberListPage/>} />
-            <Route path='/update' element={<UpdatePage/>} />
+            <Route path='/update/:member_user_key' element={<UpdatePage/>} />
             <Route path='/searchpage' element={<SearchPage/>} />
             <Route path='/login' element={<LoginPage/>}/>
         </Routes>
