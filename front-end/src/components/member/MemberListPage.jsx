@@ -27,7 +27,7 @@ const MemberListPage = () => {
         } else {
             setList([]);
         }
-        
+
         setCount(res.data.count);
         if (page > Math.ceil(res.data.count / size)) setPage(page - 1);
 
@@ -36,9 +36,9 @@ const MemberListPage = () => {
     const onClickSerch = () => {
         setPage(1);
         callAPI();
-    } 
+    }
 
-    /* 체크 시스템 */ 
+    /* 체크 시스템 */
     const onChangeAll = (e) => {
         setList(list.map(u => u && { ...u, checked: e.target.checked }));
     }
@@ -88,6 +88,18 @@ const MemberListPage = () => {
         callAPI()
     }, [page])
 
+    //친구추가 시스템 테스트 나중에 삭제 예정//
+    const onAddFriends = async (followid) => {
+        const uid = sessionStorage.getItem("uid")
+        if(uid===followid){
+            alert("자기 자신은 친구추가가 안됩니다")
+        }else{
+            await axios.post('/friends/insert', { uid, followid})
+            alert("친구추가완료!")
+        }
+        
+    }
+
     return (
         <div className='text-center'>
             <h3>회원정보</h3>
@@ -133,6 +145,7 @@ const MemberListPage = () => {
                                             <td>권한</td>
                                             <td>레벨</td>
                                             <td>삭제</td>
+                                            <td>친구추가</td>
                                         </tr>
                                     </thead>
                                     <tbody className='align-middle'>
@@ -149,6 +162,7 @@ const MemberListPage = () => {
                                                 <td width="10%">{u.member_user_auth}</td>
                                                 <td width="10%">{u.member_user_grade}({u.member_user_exp})</td>
                                                 <td><Button variant='danger' className='btn-sm' onClick={() => onDelete(u)}><FaTrashCan /></Button></td>
+                                                <td><Button onClick={() => onAddFriends(u.member_user_uid)}>친구추가</Button></td>
                                             </tr>
                                         )}
                                     </tbody>
