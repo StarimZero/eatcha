@@ -128,7 +128,7 @@ router.post(`/admin/update`, function (req, res) {
     const pass = req.body.pass;
     const auth = req.body.auth;
     const exp = req.body.exp;
-    const grade =req.body.grade;
+    const grade = req.body.grade;
     let sql = `UPDATE member_info SET 
                 member_user_name=?, 
                 member_user_phone=?, 
@@ -140,7 +140,7 @@ router.post(`/admin/update`, function (req, res) {
                 member_user_grade=? 
                 WHERE member_user_uid=?`;
 
-    db.get().query(sql, [name,phone,gender,birth,pass,auth,exp,grade,uid], function (err, rows) {
+    db.get().query(sql, [name, phone, gender, birth, pass, auth, exp, grade, uid], function (err, rows) {
         if (err) {
             console.log('err......................................................사용자정보수정', err);
             res.send({ result: 0 });
@@ -174,6 +174,36 @@ router.post('/pass', function (req, res) {
             res.send({ result: 0 });
         } else {
             res.send({ result: 1 });
+        }
+    })
+})
+//아이디 찾기
+router.post('/find/id', function (req, res) {
+    const name = req.body.name;
+    const phone = req.body.phone;
+    let sql = `select * from member_info where member_user_name=? and member_user_phone=?`
+    db.get().query(sql, [name, phone], function (err, rows) {
+        if (err) {
+            console.log('err......................................................아이디찾기', err);
+            res.send({ result: 0 });
+        } else {
+            res.send(rows[0]);
+        }
+    })
+})
+
+//비밀번호찾기
+router.post('/find/pass',function(req,res){
+    const uid= req.body.uid;
+    const name = req.body.name;
+    const phone = req.body.phone;
+    let sql = `select * from member_info where member_user_name=? and member_user_phone=? and member_user_uid=?`
+    db.get().query(sql, [name, phone,uid], function (err, rows) {
+        if (err) {
+            console.log('err......................................................아이디찾기', err);
+            res.send({ result: 0 });
+        } else {
+            res.send(rows[0]);
         }
     })
 })

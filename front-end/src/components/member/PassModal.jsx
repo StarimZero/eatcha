@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { Row, Col, InputGroup, Form, Button, Card } from 'react-bootstrap';
+import { InputGroup, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 
 const PassModal = () => {
@@ -25,21 +25,21 @@ const PassModal = () => {
             return;
         }
         //현재비밀번호와 새비밀번호가 같은지 체크
-        if(npass===upass){
+        if (npass === upass) {
             alert("현재 비밀번호와 다르게 설정해주십시오!")
             return;
         }
         //새비밀번호하고 비밀번호확인하고 같은지 체크
-        if(npass !== cpass){
+        if (npass !== cpass) {
             alert("새비밀번호가 일치하지 않습니다!")
             return;
         }
         //새비밀번호 업데이트
-        if(!window.confirm("비밀번호를 변경하시겠습니까?"))  return;
-        await axios.post('/member/pass',{uid ,password:npass})
+        if (!window.confirm("비밀번호를 변경하시겠습니까?")) return;
+        await axios.post('/member/pass', { uid, password: npass })
         alert("비밀번호 변경완료!")
         sessionStorage.clear();
-        window.location.href="/member/login";
+        window.location.href = "/member/login";
     }
 
 
