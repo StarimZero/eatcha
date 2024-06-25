@@ -26,7 +26,7 @@ const MenuPage = () => {
                 <Col style={{ background: "gray" }}>
                     <Navbar expand="lg" >
                         <Container fluid>
-                            <Navbar.Brand href="/">로고자리입니다.</Navbar.Brand>
+                            <Navbar.Brand href="/"><img src="../image/mainlogo2.jpg" width={"5%"}/></Navbar.Brand>
                             <Navbar.Toggle aria-controls="navbarScroll" />
                             <Navbar.Collapse id="navbarScroll">
                                 <Nav.Link href="/restaurant/list">ADMIN메뉴==========</Nav.Link>

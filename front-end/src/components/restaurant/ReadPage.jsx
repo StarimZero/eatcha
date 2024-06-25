@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Button, Table, Card } from 'react-bootstrap';
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { BsFillPinMapFill } from "react-icons/bs";
 
 
@@ -105,7 +105,10 @@ const ReadPage = () => {
                         <Row>
                             <Col>
                                 <h5>리뷰</h5>
-                                <Button onClick={onClickDelete}>식당삭제하기</Button>
+                                <div className='text-end'>
+                                    <Button onClick={onClickDelete} className='me-3'>식당삭제하기</Button>
+                                    <Link to={`/restaurant/update/${restaurant_id}`}><Button variant='outline-warning'>식당 수정하기 </Button></Link>
+                                </div>
                             </Col>
                         </Row>
                     </Card.Body>
