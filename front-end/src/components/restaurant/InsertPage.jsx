@@ -94,7 +94,7 @@ const InsertPage = () => {
                             <InputGroup className='mb-2' >
                                 <InputGroup.Text>식당주소</InputGroup.Text>
                                 <Form.Control name='restaurant_address1' value={form.restaurant_address1} onChange={onChangeForm}/>
-                                <AddressModal/>
+                                <AddressModal setForm={setForm} form={form}/>
                             </InputGroup>
                             <InputGroup className='mb-2' >
                                 <InputGroup.Text>상세주소</InputGroup.Text>
@@ -108,11 +108,11 @@ const InsertPage = () => {
                                 <InputGroup.Text>지도링크</InputGroup.Text>
                                 <Form.Control name='restaurant_url' value={form.restaurant_url} onChange={onChangeForm}/>
                             </InputGroup>
-                            <InputGroup className='mb-2' >
+                            <InputGroup hidden className='mb-2' >
                                 <InputGroup.Text>엑스좌표</InputGroup.Text>
                                 <Form.Control name='restaurant_x' value={form.restaurant_x} onChange={onChangeForm}/>
                             </InputGroup>
-                            <InputGroup className='mb-2' >
+                            <InputGroup hidden className='mb-2' >
                                 <InputGroup.Text>와이좌표</InputGroup.Text>
                                 <Form.Control name='restaurant_y'value={form.restaurant_y} onChange={onChangeForm}/>
                             </InputGroup>

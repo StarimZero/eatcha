@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Button, Table, Card } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom'
 import { BsFillPinMapFill } from "react-icons/bs";
+import MapPage from './MapPage';
 
 
 const ReadPage = () => {
@@ -84,7 +85,7 @@ const ReadPage = () => {
                                         <td>{restaurant_etcinfo || "-"} </td>
                                     </tr>
                                     <tr>
-                                        <td>{restaurant_url || "-"} </td>
+                                        <td><span onClick={() => window.open(restaurant_url, '_blank')}>{restaurant_url || "-"}</span></td>
                                     </tr>
                                 </Table>
                             </Col>
@@ -98,7 +99,11 @@ const ReadPage = () => {
                         <hr/>
                         <Row>
                             <Col>
-                                <h5>매장위치</h5>
+                                <div>
+                                    <h5>매장위치</h5>
+                                    <MapPage/>
+                                </div>
+
                             </Col>
                         </Row>
                         <hr/>
