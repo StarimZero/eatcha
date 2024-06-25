@@ -70,4 +70,32 @@ router.post('/delete/:restaurant_id', function(req, res){
     })
 })
 
+//식당수정하기
+router.post(`/update`, function(req, res){
+    const restaurant_id = req.body.restaurant_id;
+    const restaurant_name = req.body.restaurant_name
+    const restaurant_type =  req.body.restaurant_type
+	const restaurant_time =  req.body.restaurant_time
+	const restaurant_avgprice = req.body.restaurant_avgprice
+	const restaurant_etcinfo = req.body.restaurant_etcinfo
+    const restaurant_address1 = req.body.restaurant_address1
+    const restaurant_address2 = req.body.restaurant_address2
+    const restaurant_phone = req.body.restaurant_phone
+    const restaurant_url = req.body.restaurant_url
+    const restaurant_x = req.body.restaurant_x
+    const restaurant_y = req.body.restaurant_y
+    const sql = "update restaurant_info set restaurant_name=?, restaurant_type = ?, restaurant_time = ?, restaurant_avgprice =?, restaurant_etcinfo =?, restaurant_address1 =?, restaurant_address2=?, restaurant_phone=?, restaurant_url=?, restaurant_x =?, restaurant_y=? where restaurant_id=?"
+    db.get().query(sql, [restaurant_name, restaurant_type, restaurant_time, restaurant_avgprice, restaurant_etcinfo, restaurant_address1, restaurant_address2, restaurant_phone, restaurant_url, restaurant_x, restaurant_y, restaurant_id], function(err, rows){
+        if(err){
+            console.log("식당정보수정하다가오류입니다.......", err)
+            res.send({result:0})
+        }else{
+            res.send({result:1})
+        }
+    })
+})
+
+
+
+
 module.exports = router;
