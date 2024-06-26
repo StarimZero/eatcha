@@ -25,6 +25,7 @@ app.use('/restaurant', require('./routes/restaurant'));
 app.use('/member', require('./routes/member'));
 app.use('/friends',require('./routes/friends'));
 app.use('/badge',require('./routes/badge'));
+app.use('/menu',require('./routes/menu'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

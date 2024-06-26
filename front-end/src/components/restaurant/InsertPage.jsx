@@ -31,8 +31,6 @@ const InsertPage = () => {
         }else{
             if(!window.confirm("식당정보를 등록하시겠습니까?")) return;
             //식당인서트하기
-            
-            
             const res = await axios.post(`/restaurant/insert`, form);
             console.log(form);
             console.log(res.data);
@@ -44,8 +42,6 @@ const InsertPage = () => {
                 alert("무엇인가 문제가 있습니다.")
             }
         }
-
-        
     }
     
     const onChangeForm = (e) => {

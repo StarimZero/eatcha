@@ -10,6 +10,7 @@ import RestaurantRouter from './router/RestaurantRouter';
 import MemberRouter from './router/MemberRouter';
 import FriendsRouter from './router/FriendsRouter';
 import BadgeRouter from './router/BadgeRouter';
+import MenuRouter from './router/MenuRouter';
 
 
 const MenuPage = () => {
@@ -26,7 +27,7 @@ const MenuPage = () => {
                 <Col style={{ background: "gray" }}>
                     <Navbar expand="lg" >
                         <Container fluid>
-                            <Navbar.Brand href="/"><img src="../image/mainlogo2.jpg" width={"5%"} /></Navbar.Brand>
+                            <Navbar.Brand href="/"><img src={"../image/mainlogo2.jpg" || "http://via.placeholder.com/50x50"} width={"5%"} /></Navbar.Brand>
                             <Navbar.Toggle aria-controls="navbarScroll" />
                             <Navbar.Collapse id="navbarScroll">
                                 <Nav.Link href="/restaurant/insert"><Badge bg='warning' className='me-2'>식당등록하기</Badge></Nav.Link>
@@ -34,8 +35,7 @@ const MenuPage = () => {
                                 <Nav.Link href="/member/list.json"><Badge className='me-2'>전체회원리스트</Badge></Nav.Link>
                                 <Nav.Link href="/friends/admin/list.json"><Badge bg='dark' className='me-2'>전체친구리스트</Badge></Nav.Link>
                                 <Nav.Link href="/badge/create"><Badge bg='success' className='me-2'>뱃지만들기</Badge></Nav.Link>
-                                <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
-                                </Nav>
+                                <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll></Nav>
                                 <Nav.Link href="#action2" style={{ fontSize: "25px" }}><CiBellOn />　</Nav.Link>
                                 {uid ?
                                     <>

@@ -2,7 +2,6 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Button, Table, Card } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom'
-import { BsFillPinMapFill } from "react-icons/bs";
 import MapPage from './MapPage';
 
 
@@ -94,6 +93,7 @@ const ReadPage = () => {
                         <Row>
                             <Col>
                                 <h5>메뉴</h5>
+                                <Link to={`/menu/insert/${restaurant_id}`}><Button size='sm' variant='outline-success'>메뉴등록하기</Button></Link>
                             </Col>
                         </Row>
                         <hr/>
@@ -101,7 +101,7 @@ const ReadPage = () => {
                             <Col>
                                 <div>
                                     <h5>매장위치</h5>
-                                    <MapPage/>
+                                    <MapPage />
                                 </div>
 
                             </Col>

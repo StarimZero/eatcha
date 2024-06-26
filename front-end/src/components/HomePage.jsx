@@ -25,21 +25,18 @@ const HomePage = () => {
   return (
     <Container >
         <div>
-            <Button onClick={toInsert}>식당정보등록하기</Button>
+            <Button onClick={toInsert} className='m-3'>식당정보등록하기</Button>
         </div>
         <Row className='justify-content-center'>
             {restaurant.map(info=> 
-            <Col lg={4} >
-                <Card className='mt-4 me-5'>
+            <Col lg={4}>
+                <Card className='mt-4 me-5 ms-5' style={{width:"25rem"}}>
                     <Card.Header>
                         <h5>{info.restaurant_name}</h5>
                     </Card.Header>
                     <Card.Body>
                         <div className='text-center'><Link to={`/restaurant/read/${info.restaurant_id}`}><img src="http://via.placeholder.com/300x150"/></Link></div>
                     </Card.Body>
-                    <Card.Footer>
-                        
-                    </Card.Footer>
                 </Card>
             </Col>
             )}
