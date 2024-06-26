@@ -6,7 +6,9 @@ import { Link } from 'react-router-dom';
 
 const ListPage = () => {
 
+    
     const [restaurant, setRestaurant] = useState([]);
+
 
     const callAPI = async () => {
         const res = await axios.get("/restaurant/list")
@@ -37,6 +39,7 @@ const ListPage = () => {
     <Container>
         <Row className='justify-content-center'>
             <Col lg={10}>
+                <h1 className='text-center mb-5'>전체식당리스트</h1>
                 <Table>
                     <thead>
                         <tr>
