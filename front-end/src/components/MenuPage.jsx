@@ -15,7 +15,7 @@ import MenuRouter from './router/MenuRouter';
 
 const MenuPage = () => {
     const uid = sessionStorage.getItem("uid")
-    const onClickLogout = (e)=>{
+    const onClickLogout = (e) => {
         e.preventDefault();
         if (!window.confirm("로그아웃 하시겠습니까?")) return;
         sessionStorage.clear();
@@ -27,13 +27,14 @@ const MenuPage = () => {
                 <Col style={{ background: "gray" }}>
                     <Navbar expand="lg" >
                         <Container fluid>
-                            <Navbar.Brand href="/"><img src={"../image/mainlogo2.jpg" || "http://via.placeholder.com/50x50"} width={"5%"}/></Navbar.Brand>
+                            <Navbar.Brand href="/"><img src={"../image/mainlogo2.jpg" || "http://via.placeholder.com/50x50"} width={"5%"} /></Navbar.Brand>
                             <Navbar.Toggle aria-controls="navbarScroll" />
                             <Navbar.Collapse id="navbarScroll">
                                 <Nav.Link href="/restaurant/insert"><Badge bg='warning' className='me-2'>식당등록하기</Badge></Nav.Link>
                                 <Nav.Link href="/restaurant/list"><Badge bg='danger' className='me-2'>전체식당리스트</Badge></Nav.Link>
                                 <Nav.Link href="/member/list.json"><Badge className='me-2'>전체회원리스트</Badge></Nav.Link>
                                 <Nav.Link href="/friends/admin/list.json"><Badge bg='dark' className='me-2'>전체친구리스트</Badge></Nav.Link>
+                                <Nav.Link href="/badge/create"><Badge bg='success' className='me-2'>뱃지만들기</Badge></Nav.Link>
                                 <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll></Nav>
                                 <Nav.Link href="#action2" style={{ fontSize: "25px" }}><CiBellOn />　</Nav.Link>
                                 {uid ?
@@ -64,21 +65,21 @@ const MenuPage = () => {
                     <div>유저기능7</div>
                     <div>유저기능8</div>
                 </Col>
-                <Col>
+                <Col lg={10}>
                     <Row>
                         <Routes>
                             <Route path='/' element={<HomePage />} />
                             <Route path='/restaurant/*' element={<RestaurantRouter />} />
                             <Route path='/member/*' element={<MemberRouter />} />
-                            <Route path='/friends/*' element={<FriendsRouter/>}/>
-                            <Route path='/badge/*' element={<BadgeRouter/>}/>
-                            <Route path='/menu/*' element={<MenuRouter/>}/>
+                            <Route path='/friends/*' element={<FriendsRouter />} />
+                            <Route path='/badge/*' element={<BadgeRouter />} />
+                            <Route path='/menu/*' element={<MenuRouter />} />
                         </Routes>
                     </Row>
-                    <Row>
-                        <BottomePage />
-                    </Row>
                 </Col>
+            </Row>
+            <Row className='pt-0'>
+                <BottomePage />
             </Row>
         </>
     )

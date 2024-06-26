@@ -8,24 +8,14 @@ router.get('/', function(req, res, next) {
 });
 //뱃지 목록
 router.get('/list',function(req,res){
-    const Member_user_uid = req.params.uid;
-    let sql = `select * from member_badge where Member_user_uid=?`
+    const Member_user_uid = req.query.uid;
+    let sql = `select * from member_badge where member_user_uid=?`
     db.get().query(sql,[Member_user_uid],function(err,rows){
         if (err) {
             console.log('...........................................뱃지목록 list', err)
             res.send({result:0});
         } else {
-            const doc = rows;
-            sql = `select count(*) total from member_badge where ${key} like "%"${word}"%" `;
-            db.get().query(sql, function (err, rows) {
-                if (err) {
-                    console.log('..............................................뱃지목록 total', err)
-                    res.send({result:0});
-                } else {
-                    const count = rows[0].total;
-                    res.send({ count, doc });
-                }
-            })
+            res.send(rows)
         }
     })
 })
