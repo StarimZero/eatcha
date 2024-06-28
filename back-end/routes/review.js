@@ -39,11 +39,38 @@ router.post('/insert', function(req, res) {
     db.get().query(sql, [member_user_uid, contents, restaurant_id, rating], function(err, rows){
         if(err) {
             res.send({result:0});
+            console.log('리뷰등록 오류 : ', err);
         }else {
             res.send({result:1});
         }
     });
 });
+
+// 리뷰 갯수 체크
+router.get('/list/count',function(req,res){
+    const uid= req.query.uid
+    let sql= "select count(*) from review where writer=?"
+    db.get().query(sql,[uid],function(err,rows){
+        if(err){
+            res.send({result:0})
+        }else{
+            res.send(rows)
+        }
+    })
+}) 
+
+//리뷰 등록시 경험치 증가
+router.post('/update/exp',function(req,res){
+    const uid= req.body.uid;
+    let sql=`update member_info set member_user_exp=member_user_exp+1 where member_user_uid=?`
+    db.get().query(sql,[uid],function(err,rows){
+        if(err){
+            res.send({result:0})
+        }else{
+            res.send({result:1})
+        }
+    })
+})
 
 // 식당 리뷰 수정
 router.post('/update', function(req, res) {
@@ -55,6 +82,7 @@ router.post('/update', function(req, res) {
     db.get().query(sql, [contents, rating, review_id], function(err, rows) {
         if(err) {
             res.send({result:0});
+            console.log('리뷰수정 오류 : ', err);
         }else {
             res.send({result:1});
         }
@@ -68,6 +96,7 @@ router.post('/delete', function(req, res) {
     db.get().query(sql, [review_id], function(err, rows) {
         if(err) {
             res.send({result:0});
+            console.log('리뷰삭제 오류 : ', err);
         }else{
             res.send({result:1});
         }
