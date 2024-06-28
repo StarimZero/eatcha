@@ -7,7 +7,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-
 // 식당 리뷰 리스트
 router.get('/list/:restaurant_id', function(req, res) {
     const restaurant_id = req.params.restaurant_id;

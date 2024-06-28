@@ -70,7 +70,7 @@ const UpdatePage = () => {
         <Col xs={12} md={10} lg={8}>
           <Card>
             <Card.Header className='bg-dark'>
-              <h3 className='text-center mt-2' style={{ color: "white" }}>마이페이지</h3>
+              <h3 className='text-center mt-2' style={{ color: "white" }}>관리자용수정페이지</h3>
             </Card.Header>
             <Card.Body>
               <form >
@@ -123,7 +123,7 @@ const UpdatePage = () => {
                     </InputGroup>
                     <InputGroup className='mb-2'>
                       <InputGroup.Text >경험치</InputGroup.Text>
-                      <Form.Control name="exp" value={member_user_exp} onChange={onChangeForm} />
+                      <Form.Control name="member_user_exp" value={member_user_exp} onChange={onChangeForm} />
                     </InputGroup>
                     <InputGroup className='mb-2'>
                       <InputGroup.Text >등급</InputGroup.Text>
