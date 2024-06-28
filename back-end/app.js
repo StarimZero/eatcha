@@ -26,6 +26,7 @@ app.use('/member', require('./routes/member'));
 app.use('/friends',require('./routes/friends'));
 app.use('/badge',require('./routes/badge'));
 app.use('/menu',require('./routes/menu'));
+app.use('/review', require('./routes/review'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
