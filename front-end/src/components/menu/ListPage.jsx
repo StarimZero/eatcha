@@ -28,7 +28,7 @@ const ListPage = () => {
             alert("메뉴를 삭제하였습니다.")
             callAPI();
         }else{
-            alert("무엇인가 문제가있습니다.")
+            alert("무엇인가 문제가있습니다...")
         }
       }
 
