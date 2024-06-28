@@ -51,6 +51,11 @@ const ReadPage = () => {
                         </Row>
                         <hr/>
                         <Row>
+                        <h5>리뷰</h5>
+                        <ReviewPage restaurant_id={restaurant_id}/>
+                        </Row>
+                        <hr />
+                        <Row>
                             <Col lg={2}>
                                 <Table>
                                     <tr>
@@ -110,8 +115,6 @@ const ReadPage = () => {
                         <hr/>
                         <Row>
                             <Col>
-                                <h5>리뷰</h5>
-                                <ReviewPage restaurant_id={restaurant_id}/>
                                 <div className='text-end'>
                                     <Button onClick={onClickDelete} className='me-3'>식당삭제하기</Button>
                                     <Link to={`/restaurant/update/${restaurant_id}`}><Button variant='outline-warning'>식당 수정하기 </Button></Link>
