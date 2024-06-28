@@ -22,7 +22,7 @@ const ListPage = () => {
     const onClickDelete = async (menu) => {
         if(!window.confirm(`${menu.menu_id}를 삭제하시겠습니까?`)) return;
         //삭제하기
-        const res = await axios.post(`/menu/delete/`, menu.menu_id);
+        const res = await axios.post(`/menu/delete/${menu.menu_id}`);
         console.log(res.data.result)
         if(res.data.result===1){
             alert("메뉴를 삭제하였습니다.")

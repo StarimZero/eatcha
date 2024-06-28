@@ -60,11 +60,12 @@ router.post("/update", function(req, res){
 })
 
 //메뉴삭제하기
-router.post('/delete', function(req, res){
-    const menu_id = req.body.menu_id;
+router.post('/delete/:menu_id', function(req, res){
+    const menu_id = req.params.menu_id;
     const sql = "delete from restaurant_menu where menu_id=?"
     db.get().query(sql, [menu_id], function(err, rows){
         if(err){
+            console.log("메뉴삭제하다가오류....", err)
             res.send({result:0})
         }else{
             res.send({result:1})
