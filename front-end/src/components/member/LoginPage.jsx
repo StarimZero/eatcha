@@ -31,7 +31,7 @@ const LoginPage = () => {
             if (sessionStorage.getItem('target')) {
                 window.location.href = sessionStorage.getItem('target')
             } else {
-                navi('/')
+                window.location.href="/"
             }
         }
 
@@ -42,7 +42,7 @@ const LoginPage = () => {
                 <Card style={{width:"50rem"}} className='text-center mt-5 o-hidden border-0 shadow-lg '>
                     <Row className='justify-content-center' >
                         <Col xs={12} md={5} lg={6} className='d-flex justify-content-center align-items-center'>
-                            <img src='/image/mainlogo2.jpg' style={{width:"20rem"}} />
+                            <img src='/image/badge/mainlogo2.jpg' style={{width:"20rem"}} />
                         </Col>
                         <Col xs={12} md={5} lg={6} className='d-flex justify-content-center align-items-center'>
                             <div className='loginbox px-0'>

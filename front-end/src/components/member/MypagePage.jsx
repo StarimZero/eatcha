@@ -20,9 +20,13 @@ const MypagePage = () => {
     const onChangeForm = (e) => {
         setform({ ...form, [e.target.name]: e.target.value });
     }
+    const callEXP = async () => {
+        const res =await axios.get(`/review/list/count?uid=${uid}`)
+        console.log(res.data);
+    }
 
     const callAPI = async () => {
-        const res = await axios.get(`/member//user?uid=${uid}`)
+        const res = await axios.get(`/member/user?uid=${uid}`)
         const user = res.data;
         console.log(user)
         const gender = user.member_user_gender === 1 ? '남자' : '여자';
@@ -43,6 +47,7 @@ const MypagePage = () => {
 
     useEffect(() => {
         callAPI();
+        callEXP();
     }, [])
 
     const onClickUpdate = async () => {

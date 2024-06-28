@@ -7,6 +7,31 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+// 리뷰 갯수 체크
+router.get('/list/count',function(req,res){
+    const uid= req.query.uid
+    let sql= "select count(*) from review where writer=?"
+    db.get().query(sql,[uid],function(err,rows){
+        if(err){
+            res.send({result:0})
+        }else{
+            res.send(rows)
+        }
+    })
+}) 
+
+//리뷰 등록시 경험치 증가
+router.post('/update/exp',function(req,res){
+    const uid= req.body.uid;
+    let sql=`update member_info set member_user_exp=member_user_exp+1 where member_user_uid=?`
+    db.get().query(sql,[uid],function(err,rows){
+        if(err){
+            res.send({result:0})
+        }else{
+            res.send({result:1})
+        }
+    })
+})
 
 // 식당 리뷰 리스트
 router.get('/list/:restaurant_id', function(req, res) {
