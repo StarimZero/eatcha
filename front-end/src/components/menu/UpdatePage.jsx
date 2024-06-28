@@ -7,9 +7,9 @@ const InsertPage = () => {
 
 
     const navi = useNavigate();
-    const {restaurant_id} = useParams();
+    const {menu_id} = useParams();
     const [form, setForm] = useState({
-        restaurant_id : parseInt(`${restaurant_id}`),
+        menu_id : menu_id,
         menu_name : "",
         menu_price : "",
         menu_profile_photo: "",
@@ -24,14 +24,13 @@ const InsertPage = () => {
     const onSubmit = async (e) =>{
         e.preventDefault();
 
-        if(form.menu_name=="" || form.menu_price===""){
+        if(form.menu_name==="" || form.menu_price===""){
             alert("필수사항을 적어주세요") 
         }else{
             if(!window.confirm("메뉴를 등록하시겠습니까?")) return;
-            //메뉴인서트하기
-            const res = await axios.post(`/menu/insert`, form);
+            //메뉴수정하기
+            const res = await axios.post(`/menu/update`, form);
             console.log(form);
-            console.log(res.data);
             
             if(res.data.result===1){
                 alert("등록이 완료되었습니다.")
@@ -50,14 +49,14 @@ const InsertPage = () => {
                 <Card>
                     <Card.Header>
                         <div className='text-center'>
-                            <h3>식당메뉴등록하기</h3>
+                            <h3> 식당메뉴등록하기</h3>
                         </div>
                     </Card.Header>
                     <Card.Body>
                         <form onSubmit={onSubmit}>
                             <InputGroup className='mb-2' >
                                 <InputGroup.Text>식당번호</InputGroup.Text>
-                                <Form.Control value={form.restaurant_id} name='restaurant_id' />
+                                <Form.Control value={form.menu_id} name='menu_id' readOnly />
                             </InputGroup>
                             <InputGroup className='mb-2' >
                                 <InputGroup.Text>메뉴이름</InputGroup.Text>
@@ -78,7 +77,7 @@ const InsertPage = () => {
                             <hr/>
                             <div className='text-end'>
                                 <Button className='me-3' variant='outline-danger'>취소하기</Button>
-                                <Button variant='outline-primary' type='submit'>등록하기</Button>
+                                <Button variant='outline-primary' type='submit'>수정하기</Button>
                             </div>
                         </form>
                     </Card.Body>

@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Button, Table, Card } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom'
 import MapPage from './MapPage';
+import ReviewPage from './ReviewPage';
+import ListPage from '../menu/ListPage';
+
 
 
 const ReadPage = () => {
@@ -93,7 +96,9 @@ const ReadPage = () => {
                         <Row>
                             <Col>
                                 <h5>메뉴</h5>
-                                <Link to={`/menu/insert/${restaurant_id}`}><Button size='sm' variant='outline-success'>메뉴등록하기</Button></Link>
+                                <Link to={`/menu/insert/${restaurant_id}`}><Button size='sm' variant='outline-success' className='me-2'>메뉴등록하기</Button></Link>
+                                <Button size='sm' variant='outline-danger'>메뉴 삭제하기</Button>
+                                <ListPage/>
                             </Col>
                         </Row>
                         <hr/>
@@ -110,6 +115,7 @@ const ReadPage = () => {
                         <Row>
                             <Col>
                                 <h5>리뷰</h5>
+                                <ReviewPage restaurant_id={restaurant_id}/>
                                 <div className='text-end'>
                                     <Button onClick={onClickDelete} className='me-3'>식당삭제하기</Button>
                                     <Link to={`/restaurant/update/${restaurant_id}`}><Button variant='outline-warning'>식당 수정하기 </Button></Link>
