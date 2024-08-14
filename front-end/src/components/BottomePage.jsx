@@ -6,7 +6,7 @@ const BottomePage = () => {
     <>
         <Row className='my-5'>
             <Col>
-                <img src="../image/badge/eatchaBanner.png" width={"1750em"} height={"300em"}/>
+                <img src="/image/badge/eatchaBanner.png" width={"1750em"} height={"300em"}/>
             </Col>
         </Row>
     </>

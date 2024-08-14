@@ -27,7 +27,7 @@ const MenuPage = () => {
                 <Col style={{ background: "gray" }}>
                     <Navbar expand="lg" >
                         <Container fluid>
-                            <Navbar.Brand href="/"><img src={"../image/badge/mainlogo2.jpg" || "http://via.placeholder.com/50x50"} width={"5%"} /></Navbar.Brand>
+                            <Navbar.Brand href="/"><img src={"/image/badge/mainlogo2.jpg" || "http://via.placeholder.com/50x50"} width={"5%"} /></Navbar.Brand>
                             <Navbar.Toggle aria-controls="navbarScroll" />
                             <Navbar.Collapse id="navbarScroll">
                                 <Nav.Link href="/restaurant/insert"><Badge bg='warning' text='dark' className='me-2'>식당등록하기</Badge></Nav.Link>
@@ -40,7 +40,7 @@ const MenuPage = () => {
                                 <Nav.Link href="#action2" style={{ fontSize: "25px" }}><CiBellOn />　</Nav.Link>
                                 {uid ?
                                     <>
-                                        <Nav.Link href={`/member/read/${uid}`}>{uid}님 환영합니다</Nav.Link>
+                                        <Nav.Link href={`/member/rating/${uid}`}>{uid}님 환영합니다</Nav.Link>
                                         <Button size='sm' variant='outline-warning' onClick={onClickLogout}>로그아웃</Button>
                                     </>
                                     :

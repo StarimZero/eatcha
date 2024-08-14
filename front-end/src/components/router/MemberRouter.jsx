@@ -7,6 +7,7 @@ import UpdatePage from '../member/UpdatePage'
 import LoginPage from '../member/LoginPage'
 import SearchIdPage from '../member/SearchIdPage'
 import SearchPassPage from '../member/SearchPassPage'
+import RatingPage from '../member/RatingPage'
 
 const MemberRouter = () => {
     return (
@@ -18,7 +19,7 @@ const MemberRouter = () => {
             <Route path='/searchId' element={<SearchIdPage />} />
             <Route path='/searchPass' element={<SearchPassPage />} />
             <Route path='/login' element={<LoginPage />} />
-
+            <Route path='/rating/:user_uid' element={<RatingPage />} />
         </Routes>
     )
 }
