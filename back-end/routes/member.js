@@ -193,12 +193,12 @@ router.post('/find/id', function (req, res) {
 })
 
 //비밀번호찾기
-router.post('/find/pass',function(req,res){
-    const uid= req.body.uid;
+router.post('/find/pass', function (req, res) {
+    const uid = req.body.uid;
     const name = req.body.name;
     const phone = req.body.phone;
     let sql = `select * from member_info where member_user_name=? and member_user_phone=? and member_user_uid=?`
-    db.get().query(sql, [name, phone,uid], function (err, rows) {
+    db.get().query(sql, [name, phone, uid], function (err, rows) {
         if (err) {
             console.log('err......................................................아이디찾기', err);
             res.send({ result: 0 });
@@ -231,6 +231,39 @@ router.post('/login', function (req, res) {
         }
     })
 })
+
+router.get('/review/list/:user_id', function (req, res) {
+    const uid = req.params.user_id;
+    // const page = parseInt(req.query.page) || 1; // 기본값 설정
+    // const size = parseInt(req.query.size) || 10; // 기본값 설정
+    // const offset = (page - 1) * size;
+
+    // 리뷰 리스트 조회
+    let sql = `SELECT r.*, i.restaurant_name, i.restaurant_type,date_format(review_regDate,'%Y.%m.%d') as fmtdate, date_format(review_upDate,'%Y.%m.%d') as fmtudate 
+    FROM review r join restaurant_info i on r.restaurant_id=i.restaurant_id 
+    WHERE writer=?
+    order by review_id desc`;
+    db.get().query(sql, [uid], function (err, rows) {
+        if (err) {
+            console.error("리뷰 리스트 조회 중 오류:", err);
+            return res.status(500).send({ error: "리뷰 리스트 조회 중 오류 발생" });
+        }
+
+        const documents = rows;
+
+        // 총 리뷰 개수 조회
+        sql = 'SELECT COUNT(*) AS total FROM review WHERE writer=?';
+        db.get().query(sql, [uid], function (err, rows) {
+            if (err) {
+                console.error("총 리뷰 개수 조회 중 오류:", err);
+                return res.status(500).send({ error: "총 리뷰 개수 조회 중 오류 발생" });
+            }
+
+            res.send({ documents, total: rows[0].total });
+        });
+    });
+});
+
 
 module.exports = router;
 
