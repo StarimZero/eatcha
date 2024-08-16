@@ -12,7 +12,7 @@ const ReadPage = () => {
 
 
     const [info, setInfo] = useState("");
-    const {restaurant_name, restaurant_phone, restaurant_type, restaurant_url, restaurant_x, restaurant_y, restaurant_time, restaurant_etcinfo, restaurant_address1, restaurant_address2, restaurant_avgprice, regDate,restaurant_thumb} =info
+    const {restaurant_name, restaurant_phone, restaurant_type, restaurant_url, restaurant_x, restaurant_y, restaurant_time, restaurant_etcinfo, restaurant_address1, restaurant_address2, restaurant_avgprice, regDate,restaurant_thumb,restaurant_category} =info
 
     const {restaurant_id} = useParams();
     const callAPI = async () => {
@@ -54,7 +54,7 @@ const ReadPage = () => {
                         <hr/>
                         <Row>
                         <h5>리뷰</h5>
-                        <ReviewPage restaurant_id={restaurant_id}/>
+                        <ReviewPage restaurant_id={restaurant_id} type={restaurant_type} category={restaurant_category}/>
                         </Row>
                         <hr />
                         <Row>
