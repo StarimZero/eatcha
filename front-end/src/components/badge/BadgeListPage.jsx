@@ -1,153 +1,67 @@
 import axios from 'axios'
-import React, { useEffect } from 'react'
-import { Card, Badge, Row, Col, Button } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
+import { Card, Badge, Row, Col, Button, Collapse } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 
 const BadgeListPage = () => {
-    const uid= sessionStorage.getItem("uid");
-    const callAPI= async ()=>{
-        const res = await axios.get(`/badge/list?uid=${uid}`)
+    const [list, setList] = useState([]);
+    const [openBadge, setOpenBadge] = useState(null);
+    const navi = useNavigate();
+    const callAPI = async () => {
+        const res = await axios.get(`/badge/list`)
         console.log(res.data);
+        setList(res.data)
+    }
+    const handleToggle = (badgeKey) => {
+        setOpenBadge(openBadge === badgeKey ? null : badgeKey);
     }
 
-    useEffect(()=>{callAPI()},[])
+    useEffect(() => { callAPI() }, [])
     return (
         <div>
-            <h3>뱃지보관함</h3>
-            <Row className='jutify-content-center'>
-                <Col xs={8} md={6} lg={2} className='mx-0'>
-                    <Card style={{ width: "10rem" }}>
-                        <Card.Img variant="top" src='/image/badge/start.png' />
-                        <Card.Body className='text-center px-0 py-2'>
-                            <Card.Title style={{fontSize:"1rem"}}>오늘부터 1일</Card.Title>
-                            <Button variant="primary" size='sm'>자세히보기(숨김예정)</Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col xs={8} md={6} lg={2} className='mx-0'>
-                    <Card style={{ width: "10rem" }}>
-                        <Card.Img variant="top" src='/image/badge/china.png' />
-                        <Card.Body className='text-center px-0 py-2'>
-                            <Card.Title style={{fontSize:"1rem"}}>메이드인차이나</Card.Title>
-                            <Button variant="primary" size='sm'>자세히보기(숨김예정)</Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col xs={8} md={6} lg={2} className='mx-0'>
-                    <Card style={{ width: "10rem" }}>
-                        <Card.Img variant="top" src='/image/badge/donkkas.png' />
-                        <Card.Body className='text-center px-0 py-2'>
-                            <Card.Title style={{fontSize:"1rem"}}>돈까스킬러</Card.Title>
-                            <Button variant="primary" size='sm'>자세히보기(숨김예정)</Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col xs={8} md={6} lg={2} className='mx-0'>
-                    <Card style={{ width: "10rem" }}>
-                        <Card.Img variant="top" src='/image/badge/burgerking.png' />
-                        <Card.Body className='text-center px-0 py-2'>
-                            <Card.Title style={{fontSize:"1rem"}}>버거대왕</Card.Title>
-                            <Button variant="primary" size='sm'>자세히보기(숨김예정)</Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col xs={8} md={6} lg={2} className='mx-0'>
-                    <Card style={{ width: "10rem" }}>
-                        <Card.Img variant="top" src='/image/badge/goonae.png' />
-                        <Card.Body className='text-center px-0 py-2'>
-                            <Card.Title style={{fontSize:"1rem"}}>구내식당청소기</Card.Title>
-                            <Button variant="primary" size='sm'>자세히보기(숨김예정)</Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col xs={8} md={6} lg={2} className='mx-0'>
-                    <Card style={{ width: "10rem" }}>
-                        <Card.Img variant="top" src='/image/badge/sushi.png' />
-                        <Card.Body className='text-center px-0 py-2'>
-                            <Card.Title style={{fontSize:"1rem"}}>미스터초밥왕</Card.Title>
-                            <Button variant="primary" size='sm'>자세히보기(숨김예정)</Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col xs={8} md={6} lg={2} className='mx-0'>
-                    <Card style={{ width: "10rem" }}>
-                        <Card.Img variant="top" src='/image/badge/kookbab.png' />
-                        <Card.Body className='text-center px-0 py-2'>
-                            <Card.Title style={{fontSize:"1rem"}}>든든국밥</Card.Title>
-                            <Button variant="primary" size='sm'>자세히보기(숨김예정)</Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col xs={8} md={6} lg={2} className='mx-0'>
-                    <Card style={{ width: "10rem" }}>
-                        <Card.Img variant="top" src='/image/badge/hansik.png' />
-                        <Card.Body className='text-center px-0 py-2'>
-                            <Card.Title style={{fontSize:"1rem"}}>한식마니아</Card.Title>
-                            <Button variant="primary" size='sm'>자세히보기(숨김예정)</Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col xs={8} md={6} lg={2} className='mx-0'>
-                    <Card style={{ width: "10rem" }}>
-                        <Card.Img variant="top" src='/image/badge/vietnam.png' />
-                        <Card.Body className='text-center px-0 py-2'>
-                            <Card.Title style={{fontSize:"1rem"}}>쌀국수여행</Card.Title>
-                            <Button variant="primary" size='sm'>자세히보기(숨김예정)</Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col xs={8} md={6} lg={2} className='mx-0'>
-                    <Card style={{ width: "10rem" }}>
-                        <Card.Img variant="top" src='/image/badge/beef.png' />
-                        <Card.Body className='text-center px-0 py-2'>
-                            <Card.Title style={{fontSize:"1rem"}}>소고기없이못살아</Card.Title>
-                            <Button variant="primary" size='sm'>자세히보기(숨김예정)</Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col xs={8} md={6} lg={2} className='mx-0'>
-                    <Card style={{ width: "10rem" }}>
-                        <Card.Img variant="top" src='/image/badge/bread.png' />
-                        <Card.Body className='text-center px-0 py-2'>
-                            <Card.Title style={{fontSize:"1rem"}}>밥보단빵</Card.Title>
-                            <Button variant="primary" size='sm'>자세히보기(숨김예정)</Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col xs={8} md={6} lg={2} className='mx-0'>
-                    <Card style={{ width: "10rem" }}>
-                        <Card.Img variant="top" src='/image/badge/great.png' />
-                        <Card.Body className='text-center px-0 py-2'>
-                            <Card.Title style={{fontSize:"1rem"}}>참잘먹었어요</Card.Title>
-                            <Button variant="primary" size='sm'>자세히보기(숨김예정)</Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col xs={8} md={6} lg={2} className='mx-0'>
-                    <Card style={{ width: "10rem" }}>
-                        <Card.Img variant="top" src='/image/badge/1day1ck.png' />
-                        <Card.Body className='text-center px-0 py-2'>
-                            <Card.Title style={{fontSize:"1rem"}}>1일1닭</Card.Title>
-                            <Button variant="primary" size='sm'>자세히보기(숨김예정)</Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col xs={8} md={6} lg={2} className='mx-0'>
-                    <Card style={{ width: "10rem" }}>
-                        <Card.Img variant="top" src='/image/badge/likepig.png' />
-                        <Card.Body className='text-center px-0 py-2'>
-                            <Card.Title style={{fontSize:"1rem"}}>사람보다돼지</Card.Title>
-                            <Button variant="primary" size='sm'>자세히보기(숨김예정)</Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col xs={8} md={6} lg={2} className='mx-0'>
-                    <Card style={{ width: "10rem" }}>
-                        <Card.Img variant="top" src='/image/badge/lunchlee.png' />
-                        <Card.Body className='text-center px-0 py-2'>
-                            <Card.Title style={{fontSize:"1rem"}}>점심시간이동진</Card.Title>
-                            <Button variant="primary" size='sm'>자세히보기(숨김예정)</Button>
-                        </Card.Body>
-                    </Card>
+            <h3 className='text-center'>전체 뱃지 목록</h3>
+            <Row className='justify-content-center'>
+                <Col xs={8}>
+                    <Row>
+                        {list.map(badge =>
+                            <Col xs={8} md={6} lg={2} className='mx-0' key={badge.badge_key}>
+                                <Card style={{ width: "10rem" }} className='mt-2'>
+                                    <Card.Img variant="top" src={badge.badge_img} />
+                                    <Card.Body className='text-center px-0 py-2'>
+                                        <Card.Title style={{ fontSize: "1rem" }}>{badge.badge_name}</Card.Title>
+                                        <div>
+                                            <Button
+                                                variant="primary"
+                                                size='sm'
+                                                onClick={() => handleToggle(badge.badge_key)}
+                                            >
+                                                {openBadge === badge.badge_key ? '숨기기' : '자세히보기'}
+                                            </Button>
+                                        </div>
+                                        <Collapse in={openBadge === badge.badge_key}>
+                                            <div>
+                                                <Card.Text>{badge.badge_key}</Card.Text>
+                                                <Card.Text>{badge.badge_text}</Card.Text>
+                                                <Card.Text>{badge.badge_req}</Card.Text>
+                                                <div className='mt-2'>
+                                                    <Button
+                                                        className='me-1'
+                                                        variant="success"
+                                                        size='sm'
+                                                        onClick={() => navi(`/badge/update/${badge.badge_key}`)}
+                                                    >수정</Button>
+                                                    <Button
+                                                        variant="danger"
+                                                        size='sm'
+                                                    >삭제</Button>
+                                                </div>
+                                            </div>
+                                        </Collapse>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        )}
+                    </Row>
                 </Col>
             </Row>
         </div>

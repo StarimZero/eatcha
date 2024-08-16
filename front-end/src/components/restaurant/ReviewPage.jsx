@@ -5,7 +5,7 @@ import axios from 'axios';
 import Pagination from 'react-js-pagination';
 import { useLocation } from 'react-router-dom';
 
-const ReviewPage = ({ restaurant_id }) => {
+const ReviewPage = ({ restaurant_id, type, category }) => {
     const uid = sessionStorage.getItem('uid');
     const { pathname } = useLocation();
     const [review, setReview] = useState([]);
@@ -14,7 +14,6 @@ const ReviewPage = ({ restaurant_id }) => {
     const [page, setPage] = useState(1);
     const [size, setSize] = useState(3);
     const [rating, setRating] = useState(0);
-
     // 리뷰 리스트 출력
     const callAPI = async () => {
         const url = `/review/list/${restaurant_id}?page=${page}&size=${size}`;
@@ -43,11 +42,15 @@ const ReviewPage = ({ restaurant_id }) => {
             alert('댓글 내용을 입력하세요!');
             return;
         }
-        const res = await axios.post('/review/insert', {member_user_uid:uid , contents, restaurant_id, rating});
+        const res = await axios.post('/review/insert', {member_user_uid:uid , contents, restaurant_id, rating, type,category});
         await axios.post('/review/update/exp',{uid})
         console.log(res.data);
-        setContents('');
-        callAPI();
+        if(res.data.result===1){
+            setContents('');
+            callAPI();
+            alert('리뷰등록 완료')
+        }
+       
     }
 
     // 생략 댓글 상세보기

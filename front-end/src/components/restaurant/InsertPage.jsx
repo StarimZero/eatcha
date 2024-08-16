@@ -14,6 +14,7 @@ const InsertPage = () => {
     const [form, setForm] = useState({
         restaurant_name: "",
         restaurant_type: "",
+        restaurant_category:'',
         restaurant_time: "",
         restaurant_avgprice: "",
         restaurant_etcinfo: "",
@@ -123,6 +124,27 @@ const InsertPage = () => {
                                         <option value="2">중식</option>
                                         <option value="3">일식</option>
                                         <option value="4">양식</option>
+                                        <option value="5">기타</option>
+                                        <option value="6">베이커리</option>
+                                        <option value="7">카페</option>
+                                        <option value="8">패스트푸드</option>
+                                        <option value="9">구내식당</option>
+                                    </Form.Select>
+                                </InputGroup>
+                                <InputGroup className='mb-2'>
+                                    <InputGroup.Text>식당분류</InputGroup.Text>
+                                    <Form.Select name='restaurant_category' value={form.restaurant_category} onChange={onChangeForm} >
+                                        <option value="0">분류를 선택하세요</option>
+                                        <option value="1">고기</option>
+                                        <option value="2">해산물</option>
+                                        <option value="3">채식</option>
+                                        <option value="4">국밥</option>
+                                        <option value="5">면</option>
+                                        <option value="6">디저트</option>
+                                        <option value="7">음료</option>
+                                        <option value="8">밥</option>
+                                        <option value="9">초밥</option>
+                                        <option value="10">돈까스</option>
                                     </Form.Select>
                                 </InputGroup>
                                 <InputGroup className='mb-2' >

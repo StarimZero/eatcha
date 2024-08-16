@@ -19,11 +19,12 @@ router.post("/insert", function (req, res) {
     const restaurant_x = req.body.restaurant_x
     const restaurant_y = req.body.restaurant_y
     const restaurant_thumb= req.body.restaurant_thumb
+    const restaurant_category= req.body.restaurant_category
 
-    const sql = "insert into restaurant_info(restaurant_name, restaurant_type, restaurant_time,  restaurant_avgprice, restaurant_etcinfo,  restaurant_address1, restaurant_address2, restaurant_phone , restaurant_url , restaurant_x , restaurant_y, restaurant_thumb) values(?,?,?,?,?,?,?,?,?,?,?,?) "
+    const sql = "insert into restaurant_info(restaurant_name, restaurant_type, restaurant_time,  restaurant_avgprice, restaurant_etcinfo,  restaurant_address1, restaurant_address2, restaurant_phone , restaurant_url , restaurant_x , restaurant_y, restaurant_thumb,restaurant_category) values(?,?,?,?,?,?,?,?,?,?,?,?,?) "
 
 
-    db.get().query(sql, [restaurant_name, restaurant_type, restaurant_time, restaurant_avgprice, restaurant_etcinfo, restaurant_address1, restaurant_address2, restaurant_phone, restaurant_url, restaurant_x, restaurant_y,restaurant_thumb], function (err, rows) {
+    db.get().query(sql, [restaurant_name, restaurant_type, restaurant_time, restaurant_avgprice, restaurant_etcinfo, restaurant_address1, restaurant_address2, restaurant_phone, restaurant_url, restaurant_x, restaurant_y,restaurant_thumb,restaurant_category], function (err, rows) {
         if (err) {
             console.log("레스토랑저장하다가오류............................", err);
             res.send({ result: 0 })
@@ -122,8 +123,9 @@ router.post(`/update`, function (req, res) {
     const restaurant_url = req.body.restaurant_url
     const restaurant_x = req.body.restaurant_x
     const restaurant_y = req.body.restaurant_y
-    const sql = "update restaurant_info set restaurant_name=?, restaurant_type = ?, restaurant_time = ?, restaurant_avgprice =?, restaurant_etcinfo =?, restaurant_address1 =?, restaurant_address2=?, restaurant_phone=?, restaurant_url=?, restaurant_x =?, restaurant_y=? where restaurant_id=?"
-    db.get().query(sql, [restaurant_name, restaurant_type, restaurant_time, restaurant_avgprice, restaurant_etcinfo, restaurant_address1, restaurant_address2, restaurant_phone, restaurant_url, restaurant_x, restaurant_y, restaurant_id], function (err, rows) {
+    const restaurant_category = req.body.restaurant_category
+    const sql = "update restaurant_info set restaurant_name=?, restaurant_type = ?, restaurant_time = ?, restaurant_avgprice =?, restaurant_etcinfo =?, restaurant_address1 =?, restaurant_address2=?, restaurant_phone=?, restaurant_url=?, restaurant_x =?, restaurant_y=?,restaurant_category=? where restaurant_id=?"
+    db.get().query(sql, [restaurant_name, restaurant_type, restaurant_time, restaurant_avgprice, restaurant_etcinfo, restaurant_address1, restaurant_address2, restaurant_phone, restaurant_url, restaurant_x, restaurant_y,restaurant_category ,restaurant_id], function (err, rows) {
         if (err) {
             console.log("식당정보수정하다가오류입니다.......", err)
             res.send({ result: 0 })
