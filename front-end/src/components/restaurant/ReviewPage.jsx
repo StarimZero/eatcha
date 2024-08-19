@@ -121,7 +121,7 @@ const ReviewPage = ({ restaurant_id, type, category }) => {
     return (
         <div>
             <Row className='justify-content-center'>
-                <Col xs={12} md={10} lg={8}>
+                <Col xs={12} md={10} lg={9}>
                     <Row>
                         <Col className='pt-2' xs="auto">
                             <h5>댓글 ({total})</h5>

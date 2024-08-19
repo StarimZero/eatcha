@@ -19,7 +19,7 @@ const Stars = ({ size, number, disabled, getRating }) => {
                 <StarRatings
                     rating={rating}
                     starRatedColor='orange'
-                    numberOfStars={5}
+                    numberOfStars={10}
                     name='rating'
                     starDimension={`${size}px`}
                     starSpacing='1px'
@@ -29,7 +29,7 @@ const Stars = ({ size, number, disabled, getRating }) => {
                 <StarRatings
                     rating={rating}
                     starRatedColor='orange'
-                    numberOfStars={5}
+                    numberOfStars={10}
                     name='rating'
                     starDimension={`${size}px`}
                     starSpacing='1px'
