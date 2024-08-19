@@ -1,0 +1,7 @@
+.ellipsis {
+    overflow: hidden;                  /* 콘텐츠가 오버플로우될 때 숨김 처리 */
+    text-overflow: ellipsis;           /* 텍스트 오버플로우 시 말줄임 표시 */
+    display: -webkit-box;              /* 플렉스 기반의 레이아웃 설정 */
+    -webkit-line-clamp: 1;             /* 줄 수 제한 */
+    -webkit-box-orient: vertical;      /* 플렉스 박스의 방향을 수직으로 설정 */
+}
