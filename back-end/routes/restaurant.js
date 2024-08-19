@@ -18,13 +18,13 @@ router.post("/insert", function (req, res) {
     const restaurant_url = req.body.restaurant_url
     const restaurant_x = req.body.restaurant_x
     const restaurant_y = req.body.restaurant_y
-    const restaurant_thumb= req.body.restaurant_thumb
-    const restaurant_category= req.body.restaurant_category
+    const restaurant_thumb = req.body.restaurant_thumb
+    const restaurant_category = req.body.restaurant_category
 
     const sql = "insert into restaurant_info(restaurant_name, restaurant_type, restaurant_time,  restaurant_avgprice, restaurant_etcinfo,  restaurant_address1, restaurant_address2, restaurant_phone , restaurant_url , restaurant_x , restaurant_y, restaurant_thumb,restaurant_category) values(?,?,?,?,?,?,?,?,?,?,?,?,?) "
 
 
-    db.get().query(sql, [restaurant_name, restaurant_type, restaurant_time, restaurant_avgprice, restaurant_etcinfo, restaurant_address1, restaurant_address2, restaurant_phone, restaurant_url, restaurant_x, restaurant_y,restaurant_thumb,restaurant_category], function (err, rows) {
+    db.get().query(sql, [restaurant_name, restaurant_type, restaurant_time, restaurant_avgprice, restaurant_etcinfo, restaurant_address1, restaurant_address2, restaurant_phone, restaurant_url, restaurant_x, restaurant_y, restaurant_thumb, restaurant_category], function (err, rows) {
         if (err) {
             console.log("레스토랑저장하다가오류............................", err);
             res.send({ result: 0 })
@@ -75,7 +75,7 @@ router.post(`/insert/photo`, function (req, res) {
 
 //식당목록모기 테스트 : http://localhost:5000/restaurant/list
 router.get("/list", function (req, res) {
-    sql = "select * from restaurant_info order by restaurant_id desc"
+    sql = "select ri.*, avg(r.rating) as avg from restaurant_info ri left join review r on ri.restaurant_id=r.restaurant_id group by ri.restaurant_id order by ri.restaurant_id desc"
     db.get().query(sql, function (err, rows) {
         if (err) {
             console.log("레스토랑 불러오다가 오류", err);
@@ -124,7 +124,7 @@ router.post(`/update`, function (req, res) {
     const restaurant_y = req.body.restaurant_y
     const restaurant_category = req.body.restaurant_category
     const sql = "update restaurant_info set restaurant_name=?, restaurant_type = ?, restaurant_time = ?, restaurant_avgprice =?, restaurant_etcinfo =?, restaurant_address1 =?, restaurant_address2=?, restaurant_phone=?, restaurant_url=?, restaurant_x =?, restaurant_y=?,restaurant_category=? where restaurant_id=?"
-    db.get().query(sql, [restaurant_name, restaurant_type, restaurant_time, restaurant_avgprice, restaurant_etcinfo, restaurant_address1, restaurant_address2, restaurant_phone, restaurant_url, restaurant_x, restaurant_y,restaurant_category ,restaurant_id], function (err, rows) {
+    db.get().query(sql, [restaurant_name, restaurant_type, restaurant_time, restaurant_avgprice, restaurant_etcinfo, restaurant_address1, restaurant_address2, restaurant_phone, restaurant_url, restaurant_x, restaurant_y, restaurant_category, restaurant_id], function (err, rows) {
         if (err) {
             console.log("식당정보수정하다가오류입니다.......", err)
             res.send({ result: 0 })
@@ -134,63 +134,108 @@ router.post(`/update`, function (req, res) {
     })
 })
 //사진수정
-router.post('/update/photo',function(req,res){
-    const restaurant_photo_id=req.body.restaurant_photo_id
-    const restaurant_photo=req.body.restaurant_photo
-    const sql='update restaurant_photo set restaurant_photo=? where restaurant_photo_id=?'
-    db.get().query(sql,[restaurant_photo,restaurant_photo_id],function(err,row){
+router.post('/update/photo', function (req, res) {
+    const restaurant_photo_id = req.body.restaurant_photo_id
+    const restaurant_photo = req.body.restaurant_photo
+    const sql = 'update restaurant_photo set restaurant_photo=? where restaurant_photo_id=?'
+    db.get().query(sql, [restaurant_photo, restaurant_photo_id], function (err, row) {
         if (err) {
             console.log("식당사진수정하다가오류입니다.......", err)
             res.send({ result: 0 })
         } else {
             res.send({ result: 1 })
-        } 
+        }
     })
 })
 //썸네일수정
-router.post('/update/thumb',function(req,res){
-    const restaurant_id=req.body.restaurant_id
-    const restaurant_thumb=req.body.restaurant_thumb
-    const sql='update restaurant_info set restaurant_thumb=? where restaurant_id=?'
-    db.get().query(sql,[restaurant_thumb,restaurant_id],function(err,row){
+router.post('/update/thumb', function (req, res) {
+    const restaurant_id = req.body.restaurant_id
+    const restaurant_thumb = req.body.restaurant_thumb
+    const sql = 'update restaurant_info set restaurant_thumb=? where restaurant_id=?'
+    db.get().query(sql, [restaurant_thumb, restaurant_id], function (err, row) {
         if (err) {
             console.log("식당썸네일수정하다가오류입니다.......", err)
             res.send({ result: 0 })
         } else {
             res.send({ result: 1 })
-        } 
+        }
     })
 })
 
 //식당 평균 레이팅
-router.get('/avg/:restaurant_id',function(req,res){
+router.get('/avg/:restaurant_id', function (req, res) {
     const restaurant_id = req.params.restaurant_id
-    const sql=`select avg(rating) as avg from review where restaurant_id=?`
-    db.get().query(sql,[restaurant_id],function(err,rows){
+    const sql = `select avg(rating) as avg from review where restaurant_id=?`
+    db.get().query(sql, [restaurant_id], function (err, rows) {
         if (err) {
             console.log("식당평균평점.......", err)
             res.send({ result: 0 })
         } else {
             res.send(rows[0])
-        } 
+        }
     })
 })
 //TOP10List 리뷰 최다
-router.get("/list/toplist",function(req,res){
-    const sql=`select ri.*, count(r.review_id) as rcount
+router.get("/list/toplist", function (req, res) {
+    const sql = `select ri.*, count(r.review_id) as rcount
     from restaurant_info ri
     left join review r 
     on ri.restaurant_id=r.restaurant_id
     group by ri.restaurant_id
     order by rcount desc
-    limit 10`
-    db.get().query(sql,function(err,rows){
+    limit 5`
+    db.get().query(sql, function (err, rows) {
         if (err) {
             console.log("top10 식당 리스트 오류.......", err)
             res.send({ result: 0 })
         } else {
             res.send(rows)
-        } 
+        }
+    })
+})
+
+//추천맛집리스트
+router.get("/list/recomand", function (req, res) {
+    const sql = `select ri.* ,avg(r.rating) as avg
+    from restaurant_info ri
+    left join review r on r.restaurant_id=ri.restaurant_id
+    where r.writer != 'seop' and not exists(
+        select 1
+        from review r2
+        where r2.restaurant_id=ri.restaurant_id and r2.writer='seop')
+    group by ri.restaurant_name, ri.restaurant_id
+    having avg >=4
+    order by r.rating desc
+    limit 0,10;`
+    db.get().query(sql, function (err, rows) {
+        if (err) {
+            console.log("추천 식당 리스트 오류.......", err)
+            res.send({ result: 0 })
+        } else {
+            res.send(rows)
+        }
+    })
+})
+
+//새로 등록된 가게
+router.get("/list/new", function (req, res) {
+    const sql = `select ri.* ,avg(r.rating) as avg
+    from restaurant_info ri
+    left join review r on r.restaurant_id=ri.restaurant_id
+    where r.writer != 'seop' and not exists(
+        select 1
+        from review r2
+        where r2.restaurant_id=ri.restaurant_id and r2.writer='seop')
+    group by ri.restaurant_name, ri.restaurant_id
+    order by ri.restaurant_id desc
+    limit 0,10`
+    db.get().query(sql, function (err, rows) {
+        if (err) {
+            console.log("새로운 식당 리스트 오류.......", err)
+            res.send({ result: 0 })
+        } else {
+            res.send(rows)
+        }
     })
 })
 
