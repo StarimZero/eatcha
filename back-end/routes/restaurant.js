@@ -196,47 +196,89 @@ router.get("/list/toplist", function (req, res) {
 
 //추천맛집리스트
 router.get("/list/recomand", function (req, res) {
-    const sql = `select ri.* ,avg(r.rating) as avg
-    from restaurant_info ri
-    left join review r on r.restaurant_id=ri.restaurant_id
-    where r.writer != 'seop' and not exists(
-        select 1
-        from review r2
-        where r2.restaurant_id=ri.restaurant_id and r2.writer='seop')
-    group by ri.restaurant_name, ri.restaurant_id
-    having avg >=4
-    order by r.rating desc
-    limit 0,10;`
-    db.get().query(sql, function (err, rows) {
-        if (err) {
-            console.log("추천 식당 리스트 오류.......", err)
-            res.send({ result: 0 })
-        } else {
-            res.send(rows)
-        }
-    })
-})
+    const uid = req.query.uid; // req.query를 사용하여 쿼리 파라미터를 가져옵니다.
 
-//새로 등록된 가게
-router.get("/list/new", function (req, res) {
-    const sql = `select ri.* ,avg(r.rating) as avg
-    from restaurant_info ri
-    left join review r on r.restaurant_id=ri.restaurant_id
-    where r.writer != 'seop' and not exists(
-        select 1
-        from review r2
-        where r2.restaurant_id=ri.restaurant_id and r2.writer='seop')
-    group by ri.restaurant_name, ri.restaurant_id
-    order by ri.restaurant_id desc
-    limit 0,10`
-    db.get().query(sql, function (err, rows) {
+    // SQL 쿼리 기본 부분
+    let sql = `SELECT ri.*, AVG(r.rating) AS avg
+               FROM restaurant_info ri
+               LEFT JOIN review r ON r.restaurant_id = ri.restaurant_id`;
+
+    // 조건을 동적으로 추가
+    let conditions = [];
+    let params = [];
+
+    if (uid) {
+        // uid가 제공된 경우, 조건을 추가합니다.
+        conditions.push('r.writer != ?');
+        conditions.push(`NOT EXISTS (
+                            SELECT 1
+                            FROM review r2
+                            WHERE r2.restaurant_id = ri.restaurant_id
+                            AND r2.writer = ?)`);
+        params.push(uid);
+        params.push(uid);
+    }
+
+    // 나머지 쿼리 부분 추가
+    sql += ' ' + conditions.join(' AND ');
+    sql += ` GROUP BY ri.restaurant_name, ri.restaurant_id
+             HAVING avg >= 4
+             ORDER BY AVG(r.rating) DESC
+             LIMIT 0, 10; `;
+
+    // 쿼리 실행
+    db.get().query(sql, params, function (err, rows) {
         if (err) {
-            console.log("새로운 식당 리스트 오류.......", err)
-            res.send({ result: 0 })
+            console.log("추천 식당 리스트 오류.......", err);
+            res.send({ result: 0 });
         } else {
-            res.send(rows)
+            res.send(rows);
         }
-    })
-})
+    });
+});
+
+
+// 새로 등록된 가게
+router.get("/list/new", function (req, res) {
+    const uid = req.query.uid; // req.query를 사용하여 쿼리 파라미터에서 uid 값을 가져옵니다.
+
+    // SQL 쿼리 기본 부분
+    let sql = `SELECT ri.*, AVG(r.rating) AS avg
+               FROM restaurant_info ri
+               LEFT JOIN review r ON r.restaurant_id = ri.restaurant_id`;
+    
+    // 조건을 동적으로 추가
+    let conditions = [];
+    let params = [];
+    
+    if (uid) {
+        // uid가 제공된 경우, 조건을 추가합니다.
+        conditions.push('r.writer != ?');
+        conditions.push(`NOT EXISTS (
+                            SELECT 1
+                            FROM review r2
+                            WHERE r2.restaurant_id = ri.restaurant_id
+                            AND r2.writer = ?)`);
+        params.push(uid);
+        params.push(uid);
+    }
+    
+    // 나머지 쿼리 부분 추가
+    sql += ' ' + (conditions.length ? 'WHERE ' + conditions.join(' AND ') : '');
+    sql += ` GROUP BY ri.restaurant_name, ri.restaurant_id
+             ORDER BY ri.restaurant_id DESC
+             LIMIT 0, 10`;
+    
+    // 쿼리 실행
+    db.get().query(sql, params, function (err, rows) {
+        if (err) {
+            console.log("새로운 식당 리스트 오류.......", err);
+            res.send({ result: 0 });
+        } else {
+            res.send(rows);
+        }
+    });
+});
+
 
 module.exports = router;

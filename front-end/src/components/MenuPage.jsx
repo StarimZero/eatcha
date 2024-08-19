@@ -31,7 +31,7 @@ const MenuPage = () => {
                             <Navbar.Brand href="/"><img className='ms-3' src={"/image/eatcha.png" || "http://via.placeholder.com/50x50"} style={{ width: "6rem" }} /></Navbar.Brand>
                             <Navbar.Toggle aria-controls="navbarScroll" />
                             <Navbar.Collapse id="navbarScroll">
-                                {uid === 'admin' ||
+                                {uid === 'admin' &&
                                     <>
                                         <Nav.Link href="/restaurant/insert"><Badge bg='warning' text='dark' className='me-2'>식당등록하기</Badge></Nav.Link>
                                         <Nav.Link href="/restaurant/list"><Badge bg='danger' className='me-2'>전체식당리스트</Badge></Nav.Link>
@@ -51,7 +51,7 @@ const MenuPage = () => {
                                         </div>
                                         :
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                            <Nav.Link href="/member/login">로그인</Nav.Link>
+                                            <Nav.Link href="/member/login"><span style={{ fontSize:"1.5rem",color: 'white' }}>로그인</span></Nav.Link>
                                             <Link to="/member/join"><Button size='sm' variant='warning'>회원가입</Button></Link>
                                         </div>
                                     }

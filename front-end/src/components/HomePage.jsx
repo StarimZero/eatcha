@@ -7,7 +7,7 @@ import RecomandSlider from './main/RecomandSlider';
 import New10Slider from './main/New10Slider';
 
 const HomePage = () => {
-    const uid= sessionStorage.getItem("uid")
+    const uid = sessionStorage.getItem("uid")
     const navigate = useNavigate();
     const [restaurant, setRestaurant] = useState([]);
 
@@ -27,17 +27,16 @@ const HomePage = () => {
 
     return (
         <Container className='justify-content-center'>
-           
-            <div className='my-4 justify-content-center'>
-                <h5>Best Eatcha</h5>
+            <div className='ms-5 mt-4 justify-content-center'>
+                <div className='ms-5'><img src='/image/banner/001.png' style={{ width: "15rem" }} /></div>
                 <Top10Slider />
             </div>
-            <div className='my-4 justify-content-center'>
-                <h5>추천 맛집 TOP 10</h5>
+            <div className='ms-5 mb-4 justify-content-center'>
+                <div className='ms-5'><img src='/image/banner/002.png' style={{ width: "15rem" }} /></div>
                 <RecomandSlider />
             </div>
-            <div className='my-4 justify-content-center'>
-                <h5>새로 등록된 Eatcha 10</h5>
+            <div className='ms-5 my-4 justify-content-center'>
+                <div className='ms-5'><img src='/image/banner/003.png' style={{ width: "15rem" }} /></div>
                 <New10Slider />
             </div>
         </Container>

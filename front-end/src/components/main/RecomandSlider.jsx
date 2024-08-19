@@ -2,10 +2,11 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import { Card, Box} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const RecomandSlider = () => {
     const [list, setList] = useState([]);
-
+    const navi=useNavigate();
     // 데이터 호출 함수
     const callAPI = async () => {
         try {
@@ -37,8 +38,8 @@ const RecomandSlider = () => {
         <Box sx={{ width: '100%', margin: 'auto', padding: 2 }}>
             <Slider {...settings}>
                 {list.map((l, index) => (
-                    <Box key={l.restaurant_id} sx={{ padding: 1 }}>
-                        <Card sx={{ position: 'relative', boxShadow: 'none', borderRadius: '8px', overflow: 'hidden' }}>
+                    <Box key={l.restaurant_id} sx={{ padding: 1 }} onClick={()=>navi(`/restaurant/read/${l.restaurant_id}`)}>
+                        <Card sx={{ cursor:"pointer" , position: 'relative', boxShadow: 'none', borderRadius: '8px', overflow: 'hidden' }}>
                             <Box sx={{ position: 'relative', width: '20rem', height: '15rem' }}>
                                 <img
                                     src={l.restaurant_thumb}

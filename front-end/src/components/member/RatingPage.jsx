@@ -11,6 +11,7 @@ import { Chart } from 'react-google-charts';
 const RatingPage = () => {
     const navi = useNavigate();
     const { user_uid } = useParams();
+    const uid = sessionStorage.getItem('uid')
     console.log(user_uid)
     const user_id = user_uid
     const [list, setList] = useState([]);
@@ -24,7 +25,7 @@ const RatingPage = () => {
     useEffect(() => { callAPI() }, [])
 
     const ratingCounts = list.reduce((acc, item) => {
-        const rating = item.rating;
+        const rating = item.rating / 2;
         acc[rating] = (acc[rating] || 0) + 1;
         return acc;
     }, {});
@@ -40,55 +41,61 @@ const RatingPage = () => {
                 <Col xs={8}>
                     <Row>
                         <Col xs={3} className='text-center'>
-                            <img src={"http://via.placeholder.com/200x200"} style={{ borderRadius: '50%', width: "4rem", height: "4rem" }} />
+                            <img src={"/image/badge/likepig.png"} style={{ borderRadius: '5%', width: "10rem", height: "10rem" }} />
                         </Col>
-                        <Col xs={3}>
-                            <Card style={{ cursor: "pointer", padding: "20px" }} onClick={() => navi(`/diary/insert`)}>
-                                <div className='text-center'>
-                                    <span className='me-1'>리뷰 {total}</span>
-                                </div>
-                            </Card>
-                        </Col>
-                        <Col xs={3}>
-                            <Card style={{ cursor: "pointer", padding: "20px" }}>
-                                <div className='text-center'>
-                                    팔로워 15
-                                </div>
-                            </Card>
-                        </Col>
-                        <Col xs={3}>
-                            <Card style={{ cursor: "pointer", padding: "20px" }}>
-                                <div className='text-center' >
-                                    팔로잉 12
-                                </div>
-                            </Card>
-                        </Col>
-                    </Row>
-
-                    <Row className='mt-2'>
-                        <Col xs={5}>
-                            <Card style={{ cursor: "pointer", padding: "20px" }} onClick={() => navi(`/badge/${user_id}`)}>
-                                <div className='text-center'>
-                                    <span className='me-1'>뱃지 보관함</span>
-                                    <PiNotebookDuotone style={{ fontSize: '23px', color: 'brown', verticalAlign: 'middle' }} />
-                                </div>
-                            </Card>
-                        </Col>
-                        <Col xs={5}>
-                            <Card style={{ cursor: "pointer", padding: "20px" }} onClick={() => navi(`/member/read/${user_id}`)}>
-                                <div className='text-center'>
-                                    <span className='me-1'>프로필 수정</span>
-                                    <MdOutlineSettings style={{ fontSize: '23px', color: 'brown', verticalAlign: 'middle' }} />
-                                </div>
-                            </Card>
-                        </Col>
-                        <Col xs={2}>
-                            <Card style={{ cursor: "pointer", padding: "20px" }} onClick={() => navi(`/diary/insert`)}>
-                                <div className='text-center'>
-                                    <span className='me-1'>친구 추가 </span>
-                                    <IoPersonAddSharp style={{ fontSize: '23px', color: 'brown', verticalAlign: 'middle' }} />
-                                </div>
-                            </Card>
+                        <Col xs={9}>
+                            <Row className='mt-2'>
+                                <Col xs={4}>
+                                    <Card style={{ cursor: "pointer", padding: "20px" }}>
+                                        <div className='text-center'>
+                                            리뷰 {total}
+                                        </div>
+                                    </Card>
+                                </Col>
+                                <Col xs={4}>
+                                    <Card style={{ cursor: "pointer", padding: "20px" }}>
+                                        <div className='text-center'>
+                                            팔로워 15
+                                        </div>
+                                    </Card>
+                                </Col>
+                                <Col xs={4}>
+                                    <Card style={{ cursor: "pointer", padding: "20px" }}>
+                                        <div className='text-center' >
+                                            팔로잉 12
+                                        </div>
+                                    </Card>
+                                </Col>
+                            </Row>
+                            <Row className='mt-3'>
+                                <Col xs={6}>
+                                    <Card style={{ cursor: "pointer", padding: "20px" }} onClick={() => navi(`/badge/${user_id}`)}>
+                                        <div className='text-center'>
+                                            <span className='me-1'>뱃지 보관함</span>
+                                            <PiNotebookDuotone style={{ fontSize: '23px', color: 'brown', verticalAlign: 'middle' }} />
+                                        </div>
+                                    </Card>
+                                </Col>
+                                {uid === user_id ?
+                                    <Col xs={6}>
+                                        <Card style={{ cursor: "pointer", padding: "20px" }} onClick={() => navi(`/member/read/${user_id}`)}>
+                                            <div className='text-center'>
+                                                <span className='me-1'>프로필 수정</span>
+                                                <MdOutlineSettings style={{ fontSize: '23px', color: 'brown', verticalAlign: 'middle' }} />
+                                            </div>
+                                        </Card>
+                                    </Col>
+                                    :
+                                    <Col xs={6}>
+                                        <Card style={{ cursor: "pointer", padding: "20px" }} onClick={() => navi(`/diary/insert`)}>
+                                            <div className='text-center'>
+                                                <span className='me-1'>친구 추가 </span>
+                                                <IoPersonAddSharp style={{ fontSize: '23px', color: 'brown', verticalAlign: 'middle' }} />
+                                            </div>
+                                        </Card>
+                                    </Col>
+                                }
+                            </Row>
                         </Col>
                     </Row>
                     <div className='mt-4'>
@@ -123,7 +130,7 @@ const RatingPage = () => {
                                         <td>
                                             <Rating
                                                 name={`rating-${l.review_id}`}
-                                                value={l.rating}
+                                                value={l.rating / 2}
                                                 precision={0.1}
                                                 readOnly
                                             />
