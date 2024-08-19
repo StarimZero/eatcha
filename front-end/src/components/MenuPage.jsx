@@ -59,7 +59,7 @@ const MenuPage = () => {
                     <div>유저메뉴</div>
                     <div><Link to={"/friends/list.json"}><Badge>친구목록</Badge></Link></div>
                     <div><Link to={"/badge/list.json"}><Badge>뱃지목록</Badge></Link></div>
-                    <div>유저기능3</div>
+                    <div><Link to={"/restaurant/list/top10page"}><Badge>top10</Badge></Link></div>
                     <div>유저기능4</div>
                     <div>유저기능5</div>
                     <div>유저기능6</div>

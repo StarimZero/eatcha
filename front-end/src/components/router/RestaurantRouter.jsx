@@ -5,6 +5,7 @@ import HomePage from '../HomePage'
 import ListPage from '../restaurant/ListPage'
 import ReadPage from '../restaurant/ReadPage'
 import UpdatePage from '../restaurant/UpdatePage'
+import Top10Slider from '../main/Top10Slider'
 
 const RestaurantRouter = () => {
   return (
@@ -14,6 +15,7 @@ const RestaurantRouter = () => {
         <Route path='/list' element={<ListPage/>}/>
         <Route path='/read/:restaurant_id' element={<ReadPage/>}/>
         <Route path='/update/:restaurant_id' element={<UpdatePage/>}/>
+        <Route path='/list/top10page' element={<Top10Slider/>}/>
     </Routes>
   )
 }

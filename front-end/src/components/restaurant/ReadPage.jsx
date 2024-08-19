@@ -8,15 +8,19 @@ import ListPage from '../menu/ListPage';
 
 
 
+
+
 const ReadPage = () => {
 
-
+    const [avg,setAvg]=useState('')
     const [info, setInfo] = useState("");
     const {restaurant_name, restaurant_phone, restaurant_type, restaurant_url, restaurant_x, restaurant_y, restaurant_time, restaurant_etcinfo, restaurant_address1, restaurant_address2, restaurant_avgprice, regDate,restaurant_thumb,restaurant_category} =info
 
     const {restaurant_id} = useParams();
     const callAPI = async () => {
         const res = await axios.get(`/restaurant/read/${restaurant_id}`);
+        const res2= await axios.get(`/restaurant/avg/${restaurant_id}`)
+        setAvg(res2.data.avg)
         console.log(res.data);
         setInfo(res.data);
     }

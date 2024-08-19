@@ -89,7 +89,6 @@ router.get("/list", function (req, res) {
 //식당정보 읽기
 router.get('/read/:restaurant_id', function (req, res) {
     const restaurant_id = req.params.restaurant_id;
-
     const sql = "select * from restaurant_info where restaurant_id =?"
     db.get().query(sql, [restaurant_id], function (err, rows) {
         res.send(rows[0])
@@ -134,7 +133,7 @@ router.post(`/update`, function (req, res) {
         }
     })
 })
-
+//사진수정
 router.post('/update/photo',function(req,res){
     const restaurant_photo_id=req.body.restaurant_photo_id
     const restaurant_photo=req.body.restaurant_photo
@@ -148,7 +147,7 @@ router.post('/update/photo',function(req,res){
         } 
     })
 })
-
+//썸네일수정
 router.post('/update/thumb',function(req,res){
     const restaurant_id=req.body.restaurant_id
     const restaurant_thumb=req.body.restaurant_thumb
@@ -159,6 +158,38 @@ router.post('/update/thumb',function(req,res){
             res.send({ result: 0 })
         } else {
             res.send({ result: 1 })
+        } 
+    })
+})
+
+//식당 평균 레이팅
+router.get('/avg/:restaurant_id',function(req,res){
+    const restaurant_id = req.params.restaurant_id
+    const sql=`select avg(rating) as avg from review where restaurant_id=?`
+    db.get().query(sql,[restaurant_id],function(err,rows){
+        if (err) {
+            console.log("식당평균평점.......", err)
+            res.send({ result: 0 })
+        } else {
+            res.send(rows[0])
+        } 
+    })
+})
+//TOP10List 리뷰 최다
+router.get("/list/toplist",function(req,res){
+    const sql=`select ri.*, count(r.review_id) as rcount
+    from restaurant_info ri
+    left join review r 
+    on ri.restaurant_id=r.restaurant_id
+    group by ri.restaurant_id
+    order by rcount desc
+    limit 10`
+    db.get().query(sql,function(err,rows){
+        if (err) {
+            console.log("top10 식당 리스트 오류.......", err)
+            res.send({ result: 0 })
+        } else {
+            res.send(rows)
         } 
     })
 })
