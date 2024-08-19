@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Card, Grid, Box, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Top10Slider = () => {
     const [list, setList] = useState([]);
-
+    const navi = useNavigate();
     // 데이터 호출 함수
     const callAPI = async () => {
         try {
@@ -27,7 +28,7 @@ const Top10Slider = () => {
                 <Grid container spacing={2}> {/* spacing={2} 추가하여 각 아이템 사이에 여백 추가 */}
                     <Grid item xs={12} sm={6} md={6}>
                         {list[0] && (
-                            <Card sx={{ position: 'relative', boxShadow: 'none', borderRadius: '0', overflow: 'hidden' }}>
+                            <Card sx={{ cursor: 'pointer', position: 'relative', boxShadow: 'none', borderRadius: '0', overflow: 'hidden' }} onClick={() => navi(`/restaurant/read/${list[0].restaurant_id}`)}>
                                 <Box sx={{ position: 'relative', width: '100%', height: '31rem' }}>
                                     <img
                                         src={list[0].restaurant_thumb}
@@ -52,7 +53,7 @@ const Top10Slider = () => {
                                             fontWeight: 'bold', // 폰트 두께를 bold로 설정
                                         }}
                                     >
-                                       1
+                                        1
                                     </Box>
                                     <Box
                                         sx={{
@@ -81,9 +82,9 @@ const Top10Slider = () => {
                     <Grid item xs={12} sm={6} md={6}>
                         <Grid container spacing={2}> {/* spacing={2} 추가하여 각 아이템 사이에 여백 추가 */}
                             {list.slice(1, 3).map((item, index) => (
-                                <Grid item xs={6} key={item.restaurant_id}>
-                                    <Card sx={{ position: 'relative', boxShadow: 'none', borderRadius: '0', overflow: 'hidden' }}>
-                                        <Box sx={{ position: 'relative', width: '100%', height: '15rem', mb: 2 }}> {/* mb: 2 추가하여 마진 추가 */}
+                                <Grid item xs={6} key={item.restaurant_id} >
+                                    <Card onClick={() => navi(`/restaurant/read/${item.restaurant_id}`)} sx={{ position: 'relative', boxShadow: 'none', borderRadius: '0', overflow: 'hidden' }}>
+                                        <Box sx={{ cursor: 'pointer', position: 'relative', width: '100%', height: '15rem', mb: 2 }}> {/* mb: 2 추가하여 마진 추가 */}
                                             <img
                                                 src={item.restaurant_thumb}
                                                 alt={item.restaurant_name}
@@ -137,8 +138,8 @@ const Top10Slider = () => {
                         <Grid container spacing={2}> {/* spacing={2} 추가하여 각 아이템 사이에 여백 추가 */}
                             {list.slice(3, 5).map((item, index) => (
                                 <Grid item xs={6} key={item.restaurant_id}>
-                                    <Card sx={{ position: 'relative', boxShadow: 'none', borderRadius: '0', overflow: 'hidden' }}>
-                                        <Box sx={{ position: 'relative', width: '100%', height: '15rem', mb: 2 }}> {/* mb: 2 추가하여 마진 추가 */}
+                                    <Card onClick={() => navi(`/restaurant/read/${item.restaurant_id}`)} sx={{ position: 'relative', boxShadow: 'none', borderRadius: '0', overflow: 'hidden' }}>
+                                        <Box sx={{ cursor: 'pointer', position: 'relative', width: '100%', height: '15rem', mb: 2 }}> {/* mb: 2 추가하여 마진 추가 */}
                                             <img
                                                 src={item.restaurant_thumb}
                                                 alt={item.restaurant_name}
